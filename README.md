@@ -11,6 +11,9 @@ Agora, será preciso configurar as variáveis necessárias para os serviços exe
 - Preencha as variáveis contidas no .env.sample também para o .env. Altere os valores conforme sua necessidade. Atente que se você está usando o banco local, o valor da variável POSTGRES_HOST deve ser postgres-receita, que é o nome do serviço que será levantado pelo docker-compose.
 - O formato dos dados que foi disponibilizado pela Receita Federal exige um certo nível de trabalho antes do consumo dos dados. Por sorte, o [turicas](https://github.com/turicas/socios-brasil) e o [georgevbsantiago](https://github.com/georgevbsantiago/qsacnpj) já baixaram, converteram e disponibilizaram esses arquivos da RF em formatos de fácil acesso. Sendo assim, baixe os dados em formato *.csv* disponibilizados em  [georgevbsantiago](https://github.com/georgevbsantiago/qsacnpj) e descompacte o arquivo .zip.
 
+Caso esteja em uma VM, é importante verificar se há espaço suficiente, visto que o processo ocupa bastante disco. Na VM utilizada por padrão na Azure é necessário antes linkar o repositório de dados com o disco a ser montado. Isso pode ser feito digitando `sudo lsblk` no terminal e observando o nome do disco (geralmente com 500GB). No nosso caso trata-se do "sdc1". Em seguida, basta montar na pasta especificada no arquivo .env (se o disco tiver nome diferente de sdc1, trocar no código abaixo):
+`sudo mount /dev/sdc1 /datadrive`
+
 Para realizar a alimentação do banco, realize os seguintes passos:
 1. Faça o build do docker com **sudo make build**;
 2. Execute o comando **sudo make up** para iniciar o container docker; 
